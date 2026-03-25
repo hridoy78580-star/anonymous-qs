@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta property="og:title" content="RidwanAhmedHridoy - Anonymous Q&A">
-<meta property="og:description" content="Send me anonymous questions!">
-<meta property="og:image" content="https://hridoy78580-star.github.io/Anonymous-Qs/ee86e5da0edbffbfb52f108723f71d9b.jpg">
-<meta property="og:url" content="https://hridoy78580-star.github.io/Anonymous-Qs/">
-<meta property="og:type" content="website">
+    <meta property="og:description" content="Send me anonymous questions!">
+    <meta property="og:image" content="https://hridoy78580-star.github.io/Anonymous-Qs/ee86e5da0edbffbfb52f108723f71d9b.jpg">
+    <meta property="og:url" content="https://hridoy78580-star.github.io/Anonymous-Qs/">
+    <meta property="og:type" content="website">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RidwanAhmedHridoy - Anonymous Q&A</title>
@@ -54,7 +54,6 @@
         .avatar { width: 45px; height: 45px; border-radius: 50%; margin-right: 12px; object-fit: cover; border: 2px solid white; }
         .username { font-weight: bold; font-size: 14px; color: #333; }
 
-        /* Cursor blinking only while typing */
         .typing::after {
             content: "|";
             margin-left: 2px;
@@ -101,13 +100,17 @@
         }
         .send-btn:hover { background: #333; transform: scale(1.02); }
 
-        /* Replies Section */
         .replies-container { width: 90%; max-width: 400px; margin-top: 30px; z-index: 1; }
         .replies-header { color: white; font-size: 1.1rem; margin-bottom: 15px; text-align: left; }
         .scroll-box { max-height: 400px; overflow-y: auto; padding-right: 5px; }
+        
         .reply-card { background: white; border-radius: 18px; padding: 15px; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: left; }
         .reply-meta { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 8px; }
         .code-tag { background: #ff006e; color: white; padding: 2px 7px; border-radius: 6px; font-weight: bold; }
+        
+        /* New styling for the auto-timestamp */
+        .reply-time { color: #999; font-weight: 500; }
+        
         .question-text { font-style: italic; color: #555; font-size: 13px; border-left: 3px solid #ff8e3c; padding-left: 8px; margin-bottom: 10px; }
         .answer-text { background: #fdf2f4; padding: 10px; border-radius: 10px; font-size: 14px; }
     </style>
@@ -140,23 +143,15 @@
                 <div class="reply-card">
                     <div class="reply-meta">
                         <span class="code-tag">#777</span>
-                        <span style="color:#999">Recent</span>
+                        <span class="reply-time" data-time="2026-03-25 21:30">Calculating...</span>
                     </div>
                     <div class="question-text">"Is this really anonymous?"</div>
                     <div class="answer-text">
-                        <strong>My Reply:</strong> 100%! As long as you don't share your name, I have no idea who you are.                    </div>
+                        <strong>My Reply:</strong> 100%! As long as you don't share your name, I have no idea who you are.
+                    </div>
                 </div>
-
                 </div>
         </div>
-    </div>
-    
-    <div class="reply-card">
-                    <div class="reply-meta">
-                        <span class="code-tag">#82025840</span> <span style="color:#999">Just now</span> </div>
-                    <div class="question-text">"Face reveal, when?"</div>
-                    <div class="answer-text">
-                        <strong>My Reply:</strong> Just search Kiyotaka Ayanokoji                    </div>
     </div>
 
     <script>
@@ -181,7 +176,34 @@
             charCounter.innerText = `${msgInput.value.length}/200`;
         });
 
-        window.onload = typeEffect;
+        // Auto-Timestamp Logic
+        function updateTimestamps() {
+            const timeElements = document.querySelectorAll('.reply-time');
+            
+            timeElements.forEach(el => {
+                const timeValue = el.getAttribute('data-time');
+                if (!timeValue) return;
+
+                const postTime = new Date(timeValue).getTime();
+                const now = new Date().getTime();
+                const diff = Math.floor((now - postTime) / 1000); // Difference in seconds
+
+                let text = "";
+                if (diff < 60) text = "Just now";
+                else if (diff < 3600) text = Math.floor(diff / 60) + "m ago";
+                else if (diff < 86400) text = Math.floor(diff / 3600) + "h ago";
+                else text = Math.floor(diff / 86400) + "d ago";
+
+                el.innerText = text;
+            });
+        }
+
+        window.onload = () => {
+            typeEffect();
+            updateTimestamps();
+            // Update timestamps every minute
+            setInterval(updateTimestamps, 60000);
+        };
     </script>
 </body>
-</html>
+    </html>
