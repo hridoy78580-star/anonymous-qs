@@ -1,1 +1,99 @@
 # Anonymous-Qs
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ridwanAhmedHridoy - Anonymous Q&A</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #ff006e 0%, #ff8e3c 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: #eee;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        .username {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .subtext {
+            color: #666;
+            font-size: 13px;
+            display: block;
+        }
+        textarea {
+            width: 100%;
+            border: none;
+            background: #fff0f3;
+            border-radius: 15px;
+            padding: 20px;
+            box-sizing: border-box;
+            font-size: 16px;
+            resize: none;
+            margin-top: 10px;
+            outline: none;
+        }
+        button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 25px;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        button:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="user-info">
+            <div class="avatar"></div>
+            <div style="text-align: left;">
+                <span class="username">@ridwanAhmedHridoy</span>
+                <span class="subtext">ask me anything, anonymously</span>
+            </div>
+        </div>
+
+        <form action="https://formspree.io/f/mbdprwad" method="POST">
+            <textarea name="message" placeholder="Send me a message..." rows="5" required></textarea>
+            <button type="submit">Send!</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
