@@ -5,86 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ridwanAhmedHridoy - Anonymous Q&A</title>
     <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(180deg, #ff006e 0%, #ff8e3c 100%);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(180deg, #ff006e 0%, #ff8e3c 100%);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Prevents scrollbars if the blob is large */
+    }
 
-            .background-blob {
-  position: fixed;
-  top: -100px;
-  right: -100px;
-  width: 300px;
-  height: 300px;
-  background: rgba(100, 150, 255, 0.2);
-  filter: blur(80px);
-  border-radius: 50%;
-  z-index: -1;
+    /* Move this OUTSIDE the body brackets */
+    .background-blob {
+        position: fixed;
+        top: -50px;
+        right: -50px;
+        width: 350px;
+        height: 350px;
+        background: rgba(255, 255, 255, 0.4); /* Made it white and stronger to contrast the orange/pink */
+        filter: blur(60px);
+        border-radius: 50%;
+        z-index: 0; /* Changed to 0 so it's above the body but below the card */
+    }
 
-        }
-        .container {
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .avatar {
-            width: 40px;
-            height: 40px;
-            background: #eee;
-            border-radius: 50%;
-            margin-right: 12px;
-        }
-        .username {
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .subtext {
-            color: #666;
-            font-size: 13px;
-            display: block;
-        }
-        textarea {
-            width: 100%;
-            border: none;
-            background: #fff0f3;
-            border-radius: 15px;
-            padding: 20px;
-            box-sizing: border-box;
-            font-size: 16px;
-            resize: none;
-            margin-top: 10px;
-            outline: none;
-        }
-        button {
-            background: black;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 18px;
-            margin-top: 25px;
-            width: 100%;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-        button:active { transform: scale(0.98); }
-    </style>
+    .container {
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        position: relative; /* Ensures it stays above the blob */
+        z-index: 1;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.9); /* Slight transparency for that glass look */
+        backdrop-filter: blur(10px); /* Blurs the background behind the card */
+        padding: 25px;
+        border-radius: 25px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    
+    /* Rest of your CSS below... */
+    .user-info { display: flex; align-items: center; margin-bottom: 15px; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; margin-right: 12px; object-fit: cover; }
+    .username { font-weight: bold; font-size: 14px; }
+    .subtext { color: #666; font-size: 13px; display: block; }
+    textarea { width: 100%; border: none; background: #fff0f3; border-radius: 15px; padding: 20px; box-sizing: border-box; font-size: 16px; resize: none; margin-top: 10px; outline: none; }
+    button { background: black; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: bold; font-size: 18px; margin-top: 25px; width: 100%; cursor: pointer; transition: 0.2s; }
+    button:hover { transform: translateY(-3px); background: #333; }
+    button:active { transform: scale(0.98); }
+                                    </style>
 </head>
 <body>
     <div class="background-blob"></div>
