@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ridwanAhmedHridoy - Anonymous Q&A</title>
+    <title>RidwanAhmedHridoy - Anonymous Q&A</title>
     <style>
-        /* Base Page Setup */
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,7 +17,6 @@
             padding: 40px 0;
         }
 
-        /* Floating Background Blob */
         .background-blob {
             position: fixed;
             top: -50px;
@@ -31,7 +29,6 @@
             z-index: 0;
         }
 
-        /* Main Card Container */
         .container {
             width: 90%;
             max-width: 400px;
@@ -46,29 +43,14 @@
             padding: 25px;
             border-radius: 25px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
         }
 
-        .card:hover { transform: translateY(-5px); }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            margin-right: 12px;
-            object-fit: cover;
-            border: 2px solid white;
-        }
-
-        /* Typewriter Styling */
+        .user-info { display: flex; align-items: center; margin-bottom: 15px; }
+        .avatar { width: 45px; height: 45px; border-radius: 50%; margin-right: 12px; object-fit: cover; border: 2px solid white; }
         .username { font-weight: bold; font-size: 14px; color: #333; }
-        #typewriter-text::after {
+
+        /* Cursor blinking only while typing */
+        .typing::after {
             content: "|";
             margin-left: 2px;
             color: #ff006e;
@@ -78,7 +60,6 @@
 
         .subtext { color: #666; font-size: 13px; display: block; }
 
-        /* Form Styling */
         textarea {
             width: 100%;
             border: none;
@@ -90,75 +71,36 @@
             resize: none;
             margin-top: 10px;
             outline: none;
-            transition: border 0.3s;
-        }
-        textarea:focus { border: 1px solid #ff006e; }
-
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
         }
 
-        button {
-            border: none;
-            padding: 15px;
-            border-radius: 50px;
+        .char-count {
+            text-align: right;
+            font-size: 11px;
+            color: #ff006e;
+            margin-top: 5px;
             font-weight: bold;
-            font-size: 16px;
-            width: 100%;
-            cursor: pointer;
-            transition: 0.2s;
         }
 
         .send-btn {
             background: black;
             color: white;
-        }
-
-        .copy-btn {
-            background: #eee;
-            color: #333;
-            font-size: 14px;
-        }
-
-        button:hover { transform: scale(1.02); opacity: 0.9; }
-        button:active { transform: scale(0.98); }
-
-        /* --- REPLIES SECTION --- */
-        .replies-container {
-            width: 90%;
-            max-width: 400px;
-            margin-top: 30px;
-            z-index: 1;
-        }
-
-        .replies-header {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .scroll-box {
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .scroll-box::-webkit-scrollbar { width: 5px; }
-        .scroll-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
-
-        .reply-card {
-            background: white;
-            border-radius: 18px;
+            border: none;
             padding: 15px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: left;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 15px;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
         }
+        .send-btn:hover { background: #333; transform: scale(1.02); }
 
+        /* Replies Section */
+        .replies-container { width: 90%; max-width: 400px; margin-top: 30px; z-index: 1; }
+        .replies-header { color: white; font-size: 1.1rem; margin-bottom: 15px; text-align: left; }
+        .scroll-box { max-height: 400px; overflow-y: auto; padding-right: 5px; }
+        .reply-card { background: white; border-radius: 18px; padding: 15px; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: left; }
         .reply-meta { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 8px; }
         .code-tag { background: #ff006e; color: white; padding: 2px 7px; border-radius: 6px; font-weight: bold; }
         .question-text { font-style: italic; color: #555; font-size: 13px; border-left: 3px solid #ff8e3c; padding-left: 8px; margin-bottom: 10px; }
@@ -174,33 +116,32 @@
             <div class="user-info">
                 <img src="ee86e5da0edbffbfb52f108723f71d9b.jpg" class="avatar" alt="Avatar">
                 <div style="text-align: left;">
-                    <span class="username" id="typewriter-text"></span>
-                    <span class="subtext">Ask me anything, anonymously</span>
+                    <span class="username typing" id="typewriter-text"></span>
+                    <span class="subtext">Ask/Tell me anything, anonymously</span>
                 </div>
             </div>
 
             <form action="https://formspree.io/f/mbdprwad" method="POST">
-                <textarea name="message" placeholder="Type your message... (Add a secret #code at the end so you can find my reply!)" rows="5" required></textarea>
-                <div class="btn-group">
-                    <button type="submit" class="send-btn">Send!</button>
-                    <button type="button" class="copy-btn" id="copy-btn">🔗 Copy Profile Link</button>
-                </div>
+                <textarea id="msg-input" name="message" maxlength="200" placeholder="Type your message... (Add a secret #code at the end!)" rows="5" required></textarea>
+                <div class="char-count" id="char-counter">0/200</div>
+                <button type="submit" class="send-btn">Send!</button>
             </form>
         </div>
 
         <div class="replies-container">
             <div class="replies-header">Latest Replies 💬</div>
             <div class="scroll-box">
+                
                 <div class="reply-card">
                     <div class="reply-meta">
-                        <span class="code-tag">#4421</span>
-                        <span style="color:#999">Just now</span>
+                        <span class="code-tag">#777</span>
+                        <span style="color:#999">Recent</span>
                     </div>
                     <div class="question-text">"Is this really anonymous?"</div>
                     <div class="answer-text">
-                        <strong>My Reply:</strong> 100%! As long as you don't share your name, I have no idea who you are.
-                    </div>
+                        <strong>My Reply:</strong> 100%! As long as you don't share your name, I have no idea who you are.                    </div>
                 </div>
+
                 </div>
         </div>
     </div>
@@ -215,23 +156,19 @@
                 textElement.innerHTML += nameToType.charAt(i);
                 i++;
                 setTimeout(typeEffect, 100);
+            } else {
+                textElement.classList.remove("typing");
             }
         }
 
-        // Copy Link Functionality
-        const copyBtn = document.getElementById("copy-btn");
-        copyBtn.addEventListener("click", () => {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                copyBtn.innerText = "✅ Link Copied!";
-                setTimeout(() => {
-                    copyBtn.innerText = "🔗 Copy Profile Link";
-                }, 2000);
-            });
+        // Character Counter
+        const msgInput = document.getElementById("msg-input");
+        const charCounter = document.getElementById("char-counter");
+        msgInput.addEventListener("input", () => {
+            charCounter.innerText = `${msgInput.value.length}/200`;
         });
 
         window.onload = typeEffect;
     </script>
-
 </body>
-                    </html>
+</html>
